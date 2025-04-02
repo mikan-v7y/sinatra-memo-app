@@ -1,0 +1,16 @@
+current directory: /Users/miruru/my/FBC/sinatra-memo-app/vendor/bundle/ruby/3.1.0/gems/racc-1.8.1/ext/racc/cparse
+/Users/miruru/.rbenv/versions/3.1.7/bin/ruby -I /Users/miruru/.rbenv/versions/3.1.7/lib/ruby/3.1.0 extconf.rb
+creating Makefile
+
+current directory: /Users/miruru/my/FBC/sinatra-memo-app/vendor/bundle/ruby/3.1.0/gems/racc-1.8.1/ext/racc/cparse
+make DESTDIR\= sitearchdir\=./.gem.20250330-70654-lv5ahx sitelibdir\=./.gem.20250330-70654-lv5ahx clean
+
+current directory: /Users/miruru/my/FBC/sinatra-memo-app/vendor/bundle/ruby/3.1.0/gems/racc-1.8.1/ext/racc/cparse
+make DESTDIR\= sitearchdir\=./.gem.20250330-70654-lv5ahx sitelibdir\=./.gem.20250330-70654-lv5ahx
+compiling cparse.c
+linking shared-object racc/cparse.bundle
+ld: warning: ignoring duplicate libraries: '-lruby.3.1'
+
+current directory: /Users/miruru/my/FBC/sinatra-memo-app/vendor/bundle/ruby/3.1.0/gems/racc-1.8.1/ext/racc/cparse
+make DESTDIR\= sitearchdir\=./.gem.20250330-70654-lv5ahx sitelibdir\=./.gem.20250330-70654-lv5ahx install
+/usr/bin/install -c -m 0755 cparse.bundle ./.gem.20250330-70654-lv5ahx/racc
