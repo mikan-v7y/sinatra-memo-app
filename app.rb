@@ -52,7 +52,11 @@ end
 
 get '/memos/:id' do
   @memo = load_memos.find { |memo| memo['id'] == params[:id].to_i }
-  erb :show
+  if @memo
+    erb :show
+  else
+    '404 Not Found'
+  end
 end
 
 get '/memos/:id/editing' do
@@ -74,4 +78,8 @@ delete '/memos/:id/deletion' do
   memos.reject! { |memo| memo['id'] == params[:id].to_i }
   save_memos(memos)
   redirect '/memos'
+end
+
+not_found do
+  '404 Not Found'
 end
