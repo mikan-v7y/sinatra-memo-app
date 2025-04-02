@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8">
+    <title><%= h(@memo["title"]) %></title>
+  </head>
+
+  <body>
+    <h1><%= h(@memo['title']) %></h1>
+    <p><%= h(@memo['content']) %></p>
+
+    <form action="/memos/<%= @memo['id'] %>/editing" method="get">
+      <button type="submit" class="large-button">変更</button>
+    </form>
+    <br><br>
+
+    <form action="/memos/<%= @memo['id'] %>/deletion" method="post">
+      <input type="hidden" name="_method" value="DELETE">
+      <button type="submit" class="large-button">削除</button>
+    </form>
+    <br><br>
+
+    <form action="/memos" method="get">
+      <button type="submit" class="large-button">戻る</button>
+    </form>
+  </body>
+</html>
