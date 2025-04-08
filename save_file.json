@@ -1,1 +1,1 @@
-[{"id":1,"title":"テスト1","content":"hogehoge"},{"id":2,"title":"test2","content":"テストです。"},{"id":3,"title":"test3","content":"hogehogehoge"},{"id":4,"title":"テスト4","content":"りんご→バナナ"}]
+[{"id":3,"title":"test3","content":"hogehogehoge"},{"id":4,"title":"test4","content":"idが重複する？\r\n"},{"id":5,"title":"テスト5","content":"id重複する？"},{"id":5,"title":"test6","content":"idは5になる？"},{"id":6,"title":"test7","content":""},{"id":7,"title":"これでどうだ","content":""},{"id":8,"title":"aa","content":""},{"id":9,"title":"メモを削除して追加","content":""}]

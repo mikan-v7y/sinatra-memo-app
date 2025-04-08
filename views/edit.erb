@@ -7,15 +7,15 @@
 
   <body>
     <h1>メモを編集</h1>
-    <form action="/memos/<%= @memo['id'] %>/editing" method="post">
+    <form action="/memos/<%= @memo[:id] %>/editing" method="post">
       <input type="hidden" name="_method" value="PATCH">
 
       <label for="title">タイトル</label>
-      <input type="text" id="title" name="title" value="<%= h(@memo['title']) %>">
+      <input type="text" id="title" name="title" value="<%= h(@memo[:title]) %>">
       <br><br>
 
       <label for="content">内容</label>
-      <textarea id="content" name="content"><%= h(@memo['content']) %></textarea>
+      <textarea id="content" name="content"><%= h(@memo[:content]) %></textarea>
       <br><br>
 
       <button type="submit" class="large-button">変更</button>
