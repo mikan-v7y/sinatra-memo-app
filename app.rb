@@ -77,7 +77,7 @@ get '/memos/:id/editing' do
   erb :edit
 end
 
-patch '/memos/:id/editing' do
+patch '/memos/:id' do
   memos = load_memos
   memo = memos.find { |memo| memo[:id] == params[:id].to_i }
 

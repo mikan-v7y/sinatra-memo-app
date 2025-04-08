@@ -7,7 +7,7 @@
 
   <body>
     <h1>メモを編集</h1>
-    <form action="/memos/<%= @memo[:id] %>/editing" method="post">
+    <form action="/memos/<%= @memo[:id] %>" method="post">
       <input type="hidden" name="_method" value="PATCH">
 
       <label for="title">タイトル</label>
