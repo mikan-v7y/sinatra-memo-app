@@ -57,8 +57,12 @@ post '/memos' do
   redirect '/memos'
 end
 
+def find_memo(id)
+  load_memos.find { |memo| memo[:id] == id.to_i }
+end
+
 get '/memos/:id' do
-  @memo = load_memos.find { |memo| memo[:id] == params[:id].to_i }
+  @memo = find_memo(params[:id])
   if @memo
     erb :show
   else
@@ -67,7 +71,7 @@ get '/memos/:id' do
 end
 
 get '/memos/:id/editing' do
-  @memo = load_memos.find { |memo| memo[:id] == params[:id].to_i }
+  @memo = find_memo(params[:id])
   erb :edit
 end
 
