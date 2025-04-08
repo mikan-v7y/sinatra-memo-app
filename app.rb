@@ -78,8 +78,9 @@ end
 patch '/memos/:id/editing' do
   memos = load_memos
   memo = memos.find { |memo| memo[:id] == params[:id].to_i }
-  memo[:title] = params[:title]
-  memo[:content] = params[:content]
+
+  memo[:title], memo[:content] = params[:title], params[:content]
+
   save_memos(memos)
   redirect "/memos/#{params[:id]}"
 end
