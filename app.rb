@@ -12,7 +12,9 @@ helpers do
   end
 end
 
-include ERB::Util
+class SomeClass
+  include ERB::Util
+end
 
 SAVE_FILE = 'memos.json'
 
