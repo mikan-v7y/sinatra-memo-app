@@ -16,13 +16,17 @@ class SomeClass
   include ERB::Util
 end
 
-SAVE_FILE = 'save_file.json'
+SAVE_FILE = 'memos.json'
 
 def load_memos
-  if File.empty?(SAVE_FILE)
-    []
+  if File.exist?(SAVE_FILE)
+    if File.empty?(SAVE_FILE)
+      []
+    else
+      JSON.parse(File.read(SAVE_FILE), symbolize_names: true)
+    end
   else
-    JSON.parse(File.read(SAVE_FILE), symbolize_names: true)
+    []
   end
 end
 
