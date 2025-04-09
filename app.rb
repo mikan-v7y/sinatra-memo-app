@@ -12,10 +12,6 @@ helpers do
   end
 end
 
-class SomeClass
-  include ERB::Util
-end
-
 SAVE_FILE = 'memos.json'
 
 get '/memos' do
@@ -43,8 +39,6 @@ post '/memos' do
   save_memos(memos)
   redirect '/memos'
 end
-
-
 
 get '/memos/:id' do
   @memo = find_memo(params[:id])
