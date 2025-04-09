@@ -18,23 +18,6 @@ end
 
 SAVE_FILE = 'memos.json'
 
-def load_memos
-  if File.exist?(SAVE_FILE)
-    if File.empty?(SAVE_FILE)
-      []
-    else
-      JSON.parse(File.read(SAVE_FILE), symbolize_names: true)
-    end
-  else
-    []
-  end
-end
-
-def save_memos(memos)
-  json_memos = JSON.generate(memos)
-  File.write(SAVE_FILE, json_memos)
-end
-
 get '/memos' do
   @memos = load_memos
   erb :index
@@ -61,9 +44,7 @@ post '/memos' do
   redirect '/memos'
 end
 
-def find_memo(id)
-  load_memos.find { |memo| memo[:id] == id.to_i }
-end
+
 
 get '/memos/:id' do
   @memo = find_memo(params[:id])
@@ -99,4 +80,25 @@ end
 
 not_found do
   '404 Not Found'
+end
+
+def load_memos
+  if File.exist?(SAVE_FILE)
+    if File.empty?(SAVE_FILE)
+      []
+    else
+      JSON.parse(File.read(SAVE_FILE), symbolize_names: true)
+    end
+  else
+    []
+  end
+end
+
+def save_memos(memos)
+  json_memos = JSON.generate(memos)
+  File.write(SAVE_FILE, json_memos)
+end
+
+def find_memo(id)
+  load_memos.find { |memo| memo[:id] == id.to_i }
 end
