@@ -45,6 +45,7 @@ get '/memos/:id' do
   if @memo
     erb :show
   else
+    status 404
     '404 Not Found'
   end
 end
@@ -73,6 +74,7 @@ delete '/memos/:id' do
 end
 
 not_found do
+  status 404
   '404 Not Found'
 end
 
