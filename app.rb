@@ -12,7 +12,7 @@ helpers do
   end
 end
 
-SAVE_FILE = 'memos.json'
+MEMO_RECORDS_FILE = 'memos.json'
 
 get '/memos' do
   @memos = load_memos
@@ -29,10 +29,10 @@ post '/memos' do
   memos = load_memos
 
   if memos.empty?
-    new_memo = { id: 1, title: title, content: content }
+    new_memo = { id: 1, title:, content: }
   else
     max_id = memos.map { |memo| memo[:id] }.max
-    new_memo = { id: max_id + 1, title: title, content: content }
+    new_memo = { id: max_id + 1, title: , content: }
   end
 
   memos << new_memo
@@ -77,11 +77,11 @@ not_found do
 end
 
 def load_memos
-  if File.exist?(SAVE_FILE)
-    if File.empty?(SAVE_FILE)
+  if File.exist?(MEMO_RECORDS_FILE)
+    if File.empty?(MEMO_RECORDS_FILE)
       []
     else
-      JSON.parse(File.read(SAVE_FILE), symbolize_names: true)
+      JSON.parse(File.read(MEMO_RECORDS_FILE), symbolize_names: true)
     end
   else
     []
@@ -90,7 +90,7 @@ end
 
 def save_memos(memos)
   json_memos = JSON.generate(memos)
-  File.write(SAVE_FILE, json_memos)
+  File.write(MEMO_RECORDS_FILE, json_memos)
 end
 
 def find_memo(id)
