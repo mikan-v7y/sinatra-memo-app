@@ -24,18 +24,15 @@ get '/memos/new' do
 end
 
 post '/memos' do
+  memos = load_memos
+  id = nil
   title = params[:title]
   content = params[:content]
-  memos = load_memos
 
-  if memos.empty?
-    new_memo = { id: 1, title:, content: }
-  else
-    max_id = memos.map { |memo| memo[:id] }.max
-    new_memo = { id: max_id + 1, title: , content: }
-  end
+  new_memo = create_or_update_memo(memos, id, title, content)
 
   memos << new_memo
+
   save_memos(memos)
   redirect '/memos'
 end
@@ -57,10 +54,14 @@ end
 
 patch '/memos/:id' do
   memos = load_memos
-  memo = memos.find { |memo| memo[:id] == params[:id].to_i }
+  id = params[:id].to_i
+  title = params[:title]
+  content = params[:content]
 
-  memo[:title] = params[:title]
-  memo[:content] = params[:content]
+  update_memo = create_or_update_memo(memos, id, title, content)
+
+  update_memo[:title] = title
+  update_memo[:content] = content
 
   save_memos(memos)
   redirect "/memos/#{params[:id]}"
@@ -97,4 +98,18 @@ end
 
 def find_memo(id)
   load_memos.find { |memo| memo[:id] == id.to_i }
+end
+
+def create_or_update_memo(memos, id, title, content)
+  if id
+    memos.find { |memo| memo[:id] == id }
+  else
+    if memos.empty?
+      new_memo = { id: 1, title:, content: }
+    else
+      max_id = memos.map { |memo| memo[:id] }.max
+      new_memo = { id: max_id + 1, title:, content: }
+    end
+    new_memo
+  end
 end
