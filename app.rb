@@ -25,11 +25,7 @@ end
 
 post '/memos' do
   memos = load_memos
-  id = nil
-  title = params[:title]
-  content = params[:content]
-
-  new_memo = create_or_update_memo(memos, id, title, content)
+  new_memo = create_new_memo(memos, params)
 
   memos << new_memo
 
@@ -54,14 +50,7 @@ end
 
 patch '/memos/:id' do
   memos = load_memos
-  id = params[:id].to_i
-  title = params[:title]
-  content = params[:content]
-
-  update_memo = create_or_update_memo(memos, id, title, content)
-
-  update_memo[:title] = title
-  update_memo[:content] = content
+  create_new_memo(memos, params)
 
   save_memos(memos)
   redirect "/memos/#{params[:id]}"
@@ -96,20 +85,15 @@ def save_memos(memos)
   File.write(MEMO_RECORDS_FILE, json_memos)
 end
 
-def find_memo(id)
-  load_memos.find { |memo| memo[:id] == id.to_i }
-end
+def create_new_memo(memos, params)
+  new_memo = { title: params[:title], content: params[:content] }
 
-def create_or_update_memo(memos, id, title, content)
-  if id
-    memos.find { |memo| memo[:id] == id }
+  if params[:id] && (memo = memos.find { |m| m[:id] == params[:id].to_i })
+    memo.merge!(new_memo)
+    memo
   else
-    if memos.empty?
-      new_memo = { id: 1, title:, content: }
-    else
-      max_id = memos.map { |memo| memo[:id] }.max
-      new_memo = { id: max_id + 1, title:, content: }
-    end
+    max_id = memos.map { |m| m[:id] }.max || 0
+    new_memo[:id] = max_id + 1
     new_memo
   end
 end
