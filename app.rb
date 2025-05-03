@@ -29,18 +29,10 @@ get '/memos/new' do
 end
 
 post '/memos' do
-  memos = load_memos
-  memo = memo_params(params)
-
-  if memos.empty?
-    new_memo = { id: 1, title: memo[:title], content: memo[:content] }
-  else
-    max_id = memos.map { |memo| memo[:id] }.max
-    new_memo = { id: max_id + 1, title: memo[:title], content: memo[:content] }
-  end
-
-  memos << new_memo
-  save_memos(memos)
+  DB.exec_params(
+    "INSERT INTO memos (title, content) VALUES ($1, $2)",
+    [params[:title], params[:content]]
+  )
   redirect '/memos'
 end
 
