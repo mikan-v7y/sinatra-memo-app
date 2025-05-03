@@ -5,6 +5,9 @@ require 'sinatra/reloader'
 require 'erb'
 require 'json'
 require 'fileutils'
+require 'pg'
+
+DB = PG.connect(dbname: 'memo_app_db')
 
 helpers do
   def h(text)
