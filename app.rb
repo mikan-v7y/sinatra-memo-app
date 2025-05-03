@@ -18,7 +18,9 @@ end
 MEMO_RECORDS_FILE = 'memos.json'
 
 get '/memos' do
-  @memos = load_memos
+  @memos = DB.exec("SELECT * FROM memos ORDER BY id").map do |row|
+    { id: row['id'].to_i, title: row['title'], content: row['content'] }
+  end
   erb :index
 end
 
