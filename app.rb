@@ -81,13 +81,6 @@ def load_memos
   end
 end
 
-def memo_params(params)
-  {
-    title: params[:title],
-    content: params[:content]
-  }
-end
-
 def save_memos(memos)
   json_memos = JSON.generate(memos)
   File.write(MEMO_RECORDS_FILE, json_memos)
