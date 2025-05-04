@@ -52,20 +52,15 @@ get '/memos/:id/editing' do
 end
 
 patch '/memos/:id' do
-  memos = load_memos
-  memo = memos.find { |memo| memo[:id] == params[:id].to_i }
-  new_memo = memo_params(params)
-
-  memo.merge!(new_memo)
-
-  save_memos(memos)
+  DB.exec_params(
+    "UPDATE memos SET title = $1, content = $2 WHERE id = $3",
+    [params[:title], params[:content], params[:id]]
+  )
   redirect "/memos/#{params[:id]}"
 end
 
 delete '/memos/:id' do
-  memos = load_memos
-  memos.reject! { |memo| memo[:id] == params[:id].to_i }
-  save_memos(memos)
+  DB.exec_params("DELETE FROM memos WHERE id = $1", [params[:id]])
   redirect '/memos'
 end
 
