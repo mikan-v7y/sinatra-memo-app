@@ -69,18 +69,6 @@ not_found do
   '404 Not Found'
 end
 
-def load_memos
-  if File.exist?(MEMO_RECORDS_FILE)
-    if File.empty?(MEMO_RECORDS_FILE)
-      []
-    else
-      JSON.parse(File.read(MEMO_RECORDS_FILE), symbolize_names: true)
-    end
-  else
-    []
-  end
-end
-
 def find_memo(id)
   result = DB.exec_params("SELECT * FROM memos WHERE id = $1 LIMIT 1", [id])
   return nil if result.ntuples == 0
