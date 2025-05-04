@@ -52,5 +52,5 @@
 - `GET /memos` : すべてのメモの一覧を取得
 - `POST /memos` : 新しいメモを作成
 - `GET /memos/:id` : ID指定でメモを取得
-- `PUT /memos/:id` : ID指定でメモを更新
+- `PATCH /memos/:id` : ID指定でメモを更新
 - `DELETE /memos/:id` : ID指定でメモを削除
