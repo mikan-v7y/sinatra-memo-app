@@ -81,11 +81,6 @@ def load_memos
   end
 end
 
-def save_memos(memos)
-  json_memos = JSON.generate(memos)
-  File.write(MEMO_RECORDS_FILE, json_memos)
-end
-
 def find_memo(id)
   result = DB.exec_params("SELECT * FROM memos WHERE id = $1 LIMIT 1", [id])
   return nil if result.ntuples == 0
