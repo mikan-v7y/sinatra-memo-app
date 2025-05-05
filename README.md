@@ -15,8 +15,8 @@
 1. リポジトリをクローンします。
 
    ```zsh
-   git clone https://github.com/yourusername/memo-app.git
-   cd memo-app
+   git clone https://github.com/yourusername/sinatra-memo-app.git
+   cd sinatra-memo-app
    ```
 
    ※ yourusername を、自分の GitHub ユーザー名に変更してください。
