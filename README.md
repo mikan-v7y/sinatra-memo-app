@@ -30,9 +30,9 @@
 3. PostgreSQL にデータベースとテーブルを作成します。以下の SQL を実行してください。
 
    ```sql
-   CREATE DATABASE memo_app;
+   CREATE DATABASE memo_app_db;
 
-   \c memo_app;
+   \c memo_app_db;
 
    CREATE TABLE memos (
    id SERIAL PRIMARY KEY,
