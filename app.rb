@@ -76,10 +76,3 @@ def find_memo(id)
   row = result[0]
   { id: row['id'].to_i, title: row['title'], content: row['content'] }
 end
-
-def memo_params(params)
-  {
-    title: params[:title],
-    content: params[:content]
-  }
-end
