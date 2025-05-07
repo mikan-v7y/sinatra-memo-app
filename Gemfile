@@ -15,5 +15,4 @@ gem 'erb_lint'
 
 gem 'rubocop-fjord'
 
-# Gemfile
 gem 'pg'
