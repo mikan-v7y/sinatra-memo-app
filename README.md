@@ -6,9 +6,9 @@
 
 ### 必要なもの
 
-- Ruby 2.7.0 以上
-- Sinatra 2.1.0 以上
-- PostgreSQL 12 以上
+- Ruby 3.1.7 以上
+- Sinatra 4.1.0 以上
+- PostgreSQL 14.17 以上
 
 ### 手順
 
