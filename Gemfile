@@ -14,3 +14,5 @@ gem 'sinatra-contrib'
 gem 'erb_lint'
 
 gem 'rubocop-fjord'
+
+gem 'pg'

@@ -5,6 +5,9 @@ require 'sinatra/reloader'
 require 'erb'
 require 'json'
 require 'fileutils'
+require 'pg'
+
+DB = PG.connect(dbname: 'memo_app_db')
 
 helpers do
   def h(text)
@@ -12,10 +15,8 @@ helpers do
   end
 end
 
-MEMO_RECORDS_FILE = 'memos.json'
-
 get '/memos' do
-  @memos = load_memos
+  @memos = DB.exec('SELECT * FROM memos ORDER BY id')
   erb :index
 end
 
@@ -24,18 +25,10 @@ get '/memos/new' do
 end
 
 post '/memos' do
-  memos = load_memos
-  memo = memo_params(params)
-
-  if memos.empty?
-    new_memo = { id: 1, title: memo[:title], content: memo[:content] }
-  else
-    max_id = memos.map { |memo| memo[:id] }.max
-    new_memo = { id: max_id + 1, title: memo[:title], content: memo[:content] }
-  end
-
-  memos << new_memo
-  save_memos(memos)
+  DB.exec_params(
+    'INSERT INTO memos (title, content) VALUES ($1, $2)',
+    [params[:title], params[:content]]
+  )
   redirect '/memos'
 end
 
@@ -55,20 +48,15 @@ get '/memos/:id/editing' do
 end
 
 patch '/memos/:id' do
-  memos = load_memos
-  memo = memos.find { |memo| memo[:id] == params[:id].to_i }
-  new_memo = memo_params(params)
-
-  memo.merge!(new_memo)
-
-  save_memos(memos)
+  DB.exec_params(
+    'UPDATE memos SET title = $1, content = $2 WHERE id = $3',
+    [params[:title], params[:content], params[:id]]
+  )
   redirect "/memos/#{params[:id]}"
 end
 
 delete '/memos/:id' do
-  memos = load_memos
-  memos.reject! { |memo| memo[:id] == params[:id].to_i }
-  save_memos(memos)
+  DB.exec_params('DELETE FROM memos WHERE id = $1', [params[:id]])
   redirect '/memos'
 end
 
@@ -77,26 +65,10 @@ not_found do
   '404 Not Found'
 end
 
-def load_memos
-  if File.exist?(MEMO_RECORDS_FILE)
-    if File.empty?(MEMO_RECORDS_FILE)
-      []
-    else
-      JSON.parse(File.read(MEMO_RECORDS_FILE), symbolize_names: true)
-    end
-  else
-    []
-  end
-end
+def find_memo(id)
+  result = DB.exec_params('SELECT * FROM memos WHERE id = $1 LIMIT 1', [id])
+  return nil if result.ntuples.zero?
 
-def memo_params(params)
-  {
-    title: params[:title],
-    content: params[:content]
-  }
-end
-
-def save_memos(memos)
-  json_memos = JSON.generate(memos)
-  File.write(MEMO_RECORDS_FILE, json_memos)
+  row = result[0]
+  { id: row['id'].to_i, title: row['title'], content: row['content'] }
 end
