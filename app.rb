@@ -16,7 +16,7 @@ helpers do
 end
 
 get '/memos' do
-  @memos = DB.exec('SELECT * FROM memos ORDER BY id').to_a
+  @memos = DB.exec('SELECT * FROM memos ORDER BY id')
   erb :index
 end
 
